@@ -9,6 +9,8 @@ import ssl
 import certifi
 # need to import as different name as to not shadow already existing json var in post_fetch
 import json as json_loader
+
+from all_paths import PATH_TO_PROXIES
 from .version import version
 
 
@@ -103,7 +105,7 @@ class Core:
     @staticmethod
     def proxy_list() -> List:
         try:
-            with open('/etc/theHarvester/proxies.yaml', 'r') as proxy_file:
+            with open(PATH_TO_PROXIES, 'r') as proxy_file:
                 keys = yaml.safe_load(proxy_file)
         except FileNotFoundError:
             try:
@@ -112,8 +114,11 @@ class Core:
             except FileNotFoundError:
                 with open('proxies.yaml', 'r') as proxy_file:
                     keys = yaml.safe_load(proxy_file)
-        http_list = [f'http://{proxy}' for proxy in keys['http']] if keys['http'] is not None else []
-        return http_list
+        return (
+            [f'http://{proxy}' for proxy in keys['http']]
+            if keys['http'] is not None
+            else []
+        )
 
     @staticmethod
     def banner() -> None:
