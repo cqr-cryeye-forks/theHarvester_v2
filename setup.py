@@ -1,6 +1,7 @@
 from setuptools import setup, find_packages
 from theHarvester.lib.version import version
 
+
 with open('README.md', 'r') as fh:
     long_description: str = fh.read()
 
