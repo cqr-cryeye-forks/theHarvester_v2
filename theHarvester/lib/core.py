@@ -10,7 +10,7 @@ import certifi
 # need to import as different name as to not shadow already existing json var in post_fetch
 import json as json_loader
 
-from all_paths import PATH_TO_PROXIES
+from all_paths import PATH_TO_PROXIES, PATH_TO_KEYS
 from .version import version
 
 
@@ -19,7 +19,7 @@ class Core:
     @staticmethod
     def api_keys() -> dict:
         try:
-            with open('/etc/theHarvester/api-keys.yaml', 'r') as api_keys:
+            with open(PATH_TO_KEYS, 'r') as api_keys:
                 keys = yaml.safe_load(api_keys)
         except FileNotFoundError:
             try:
